@@ -20,9 +20,6 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-        document.addEventListener('backbutton', function() {
-            window.plugins.flashlight.switchOff(this.exitApp, this.exitApp);
-        }, false);
     },
 
     // deviceready Event Handler
@@ -30,7 +27,7 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        alert("undefined "+window.plugins.flashlight===undefined+" null "+window.plugins.flashlight===null);
+        document.addEventListener('backbutton', this.exitApp, false);
         var flbtn = document.getElementById("flash");
         var albtn = document.getElementById("alarm");
         flbtn.addEventListener('click',this.flashMe);
@@ -45,21 +42,15 @@ var app = {
     },
 
     flashMe: function(){
-        window.plugins.flashlight.available(function(isAvailable) {
-            if(isAvailable){
-                window.plugins.flashlight.toggle(
-                    function() {},
-                    function() {alert("flashlight error")},
-                    {intensity: 0.3}
-                    );
-            }else{
-                window.plugins.toast.showLongCenter("flashlight not available",this.successCb,this.failureCb);
-            }
-        });
+        window.plugins.flashlight.toggle(
+            function() {},
+            function() {window.plugins.toast.showLongCenter("flashlight error",this.successCb,this.failureCb);},
+            {intensity: 1.0}
+            );
     },
 
     alertMe:function(){
-
+        window.plugins.toast.showLongCenter("alerted",this.successCb,this.failureCb);
     },
 
     successCb: function(result){
@@ -71,6 +62,7 @@ var app = {
     },
 
     exitApp:function() {
+        window.plugins.flashlight.switchOff();
         navigator.app.exitApp();
     },
 };
