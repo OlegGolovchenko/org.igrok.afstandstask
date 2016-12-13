@@ -42,11 +42,7 @@ var app = {
     },
 
     flashMe: function(){
-        window.plugins.flashlight.toggle(
-            function() {},
-            function() {window.plugins.toast.showLongCenter("flashlight error",this.successCb,this.failureCb);},
-            {intensity: 1.0}
-            );
+        window.plugins.flashlight.toggle(this.successCb,this.failureCb);
     },
 
     alertMe:function(){
@@ -54,15 +50,15 @@ var app = {
     },
 
     successCb: function(result){
-        alert("toast successeful");
+        alert("successeful");
     },
 
     failureCb: function(result){
-        alert("failed to toast");
+        alert("error");
     },
 
     exitApp:function() {
-        window.plugins.flashlight.switchOff();
+        window.plugins.flashlight.switchOff(this.successCb,this.failureCb);
         navigator.app.exitApp();
     },
 };
