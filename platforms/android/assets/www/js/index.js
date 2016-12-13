@@ -29,10 +29,17 @@ var app = {
     onDeviceReady: function() {
         var button = document.getElementById("toast");
         button.addEventListener('click',this.toastMe);
+        window.addEventListener("batterystatus", onBatteryStatus, false);
+    },
+
+    onBatteryStatus:function(status) {
+        if(status.level<15){
+            window.plugins.toast.showLongCenter("Batterij is laag",this.successCb,this.failureCb);
+        }
     },
 
     toastMe: function(){
-        window.plugins.toast.showLongCenter("toast sent",this.successCb,this.failureCb);
+        
     },
 
     successCb: function(result){
