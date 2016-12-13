@@ -20,6 +20,9 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener("backbutton", function() {
+            window.plugins.flashlight.switchOff(this.exitApp, this.exitApp);
+        }, false);
     },
 
     // deviceready Event Handler
@@ -27,9 +30,12 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        var button = document.getElementById("toast");
-        button.addEventListener('click',this.toastMe);
-        window.addEventListener("batterystatus", onBatteryStatus, false);
+        alert("undefined "+window.plugins.flashlight===undefined+" null "+window.plugins.flashlight===null);
+        var flbtn = document.getElementById("flash");
+        var albtn = document.getElementById("alarm");
+        flbtn.addEventListener('click',this.flashMe);
+        albtn.addEventListener('click',this.alertMe);
+        window.addEventListener('batterystatus', this.onBatteryStatus, false);
     },
 
     onBatteryStatus:function(status) {
@@ -38,8 +44,22 @@ var app = {
         }
     },
 
-    toastMe: function(){
-        
+    flashMe: function(){
+        window.plugins.flashlight.available(function(isAvailable) {
+            if(isAvailable){
+                window.plugins.flashlight.toggle(
+                    function() {},
+                    function() {alert("flashlight error")},
+                    {intensity: 0.3}
+                    );
+            }else{
+                window.plugins.toast.showLongCenter("flashlight not available",this.successCb,this.failureCb);
+            }
+        });
+    },
+
+    alertMe:function(){
+
     },
 
     successCb: function(result){
@@ -48,7 +68,11 @@ var app = {
 
     failureCb: function(result){
         alert("failed to toast");
-    }
+    },
+
+    exitApp:function() {
+        navigator.app.exitApp();
+    },
 };
 
 app.initialize();

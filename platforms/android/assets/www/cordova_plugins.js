@@ -20,6 +20,14 @@ module.exports = [
         "id": "cordova-plugin-x-toast.tests",
         "file": "plugins/cordova-plugin-x-toast/test/tests.js",
         "pluginId": "cordova-plugin-x-toast"
+    },
+    {
+        "id": "cordova-plugin-flashlight.Flashlight",
+        "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
+        "pluginId": "cordova-plugin-flashlight",
+        "clobbers": [
+            "window.plugins.flashlight"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -27,7 +35,9 @@ module.exports.metadata =
 {
     "cordova-plugin-battery-status": "1.2.1",
     "cordova-plugin-x-toast": "2.5.2",
-    "cordova-plugin-whitelist": "1.3.1"
+    "cordova-plugin-whitelist": "1.3.1",
+    "cordova-plugin-compat": "1.1.0",
+    "cordova-plugin-flashlight": "3.2.0"
 };
 // BOTTOM OF METADATA
 });
