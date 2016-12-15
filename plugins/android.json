@@ -18,10 +18,19 @@
         },
         "cordova-plugin-flashlight": {
             "PACKAGE_NAME": "org.igrok.afsttask"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "org.igrok.afsttask"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "org.igrok.afsttask"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "org.igrok.afsttask"
+        },
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "org.igrok.afsttask"
         }
     }

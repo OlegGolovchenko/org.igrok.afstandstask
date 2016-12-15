@@ -46,7 +46,7 @@ var app = {
     },
 
     alertMe:function(){
-        window.plugins.toast.showLongCenter("alerted",this.successCb,this.failureCb);
+        navigator.notification.beep(3);
     },
 
     successCb: function(result){
